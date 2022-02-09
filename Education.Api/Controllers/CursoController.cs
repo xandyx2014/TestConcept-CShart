@@ -3,6 +3,8 @@ using Education.Application.Cursos;
 using Education.Application.DTO;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Education.Api.Controllers;
 [Route("api/[controller]")]

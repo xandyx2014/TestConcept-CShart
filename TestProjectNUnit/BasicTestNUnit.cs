@@ -3,7 +3,7 @@ using NUnit.Framework;
 namespace TestProjectNUnit
 {
     [TestFixture]
-    public class Tests
+    public class BasicTestNUnit
     {
         [SetUp]
         public void Setup()
