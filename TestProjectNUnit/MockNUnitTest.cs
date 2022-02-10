@@ -22,6 +22,8 @@ namespace TestProjectNUnit
             // verifica cuantas veces el mock esta lmado al metodo
 
             // mocking.Verify(u => u.LogDatabase(It.IsAny<string>()), Times.Exactly(1));
+            // Verifica si fue seteado 
+            // mocking.VerifySet(s => s.IsLog = true, Times.Once);
             var cuentaBancaria = new CuentaBancaria(mocking.Object);
 
             var resultado = cuentaBancaria.Deposito(100);
