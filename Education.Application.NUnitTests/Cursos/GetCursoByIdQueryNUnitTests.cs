@@ -61,7 +61,7 @@ namespace Education.Application.Cursos
                 Id = cursoIdTest
             };
 
-            var resultado = await handlerByIdCurso.Handle(request, null);
+            var resultado = await handlerByIdCurso.Handle(request, cancellationToken: new System.Threading.CancellationToken());
 
             Assert.IsNotNull(resultado);
         }

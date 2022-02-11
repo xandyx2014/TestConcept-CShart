@@ -61,7 +61,7 @@ namespace Education.Application.Cursos
             request.Precio = 99;
 
 
-            var resultados = await handlerCursoCreate.Handle(request, null);
+            var resultados = await handlerCursoCreate.Handle(request, cancellationToken: new System.Threading.CancellationToken());
 
             Assert.That(resultados, Is.EqualTo(Unit.Value));
         }

@@ -8,19 +8,21 @@ using NUnit.Framework;
 using System;
 using System.Linq;
 
+
 namespace Education.Application.Cursos
 {
     [TestFixture]
     public class GetCursoQueryNUnitTests
     {
-#pragma warning disable CS8618 
-        private GetCursoQuery.GetCursoQueryHandler handlerAllCursos;
-#pragma warning restore CS8618 
+
+        private GetCursoQuery.GetCursoQueryHandler? handlerAllCursos;
+
 
 
         [SetUp]
         public void Setup()
         {
+            // una libreria que sirve para generara datos de prueba
             var fixture = new Fixture();
             var cursoRecords = fixture.CreateMany<Curso>().ToList();
 
@@ -29,15 +31,16 @@ namespace Education.Application.Cursos
                 .Create()
             );
 
-
+            // utilizamos una base de datos en memoria
             var options = new DbContextOptionsBuilder<EducationDbContext>()
+               // cada vez que se genere un test se generara una db diferente con un nuevo GUI
                .UseInMemoryDatabase(databaseName: $"EducationDbContext-{Guid.NewGuid()}")
                .Options;
-
+            // creacion el db context
             var educationDbContextFake = new EducationDbContext(options);
             educationDbContextFake.Cursos.AddRange(cursoRecords);
             educationDbContextFake.SaveChanges();
-
+            // aggregamos el map para las consultas
             var mapConfig = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new MappingTest());
@@ -64,7 +67,9 @@ namespace Education.Application.Cursos
             // GetCursoQueryHandler(context, mapping)  => handle
 
             GetCursoQuery.GetCursoQueryRequest request = new();
-            var resultados = await handlerAllCursos.Handle(request, null);
+#pragma warning disable CS8602
+            var resultados = await handlerAllCursos?.Handle(request, cancellationToken: new System.Threading.CancellationToken());
+#pragma warning restore CS8602 
 
             Assert.IsNotNull(resultados);
         }
